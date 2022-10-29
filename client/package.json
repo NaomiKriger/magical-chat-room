@@ -11,13 +11,15 @@
     "lit"
   ],
   "dependencies": {
-    "lit": "^2.2.4"
+    "lit": "^2.2.4",
+    "socket.io-client": "^4.5.3"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.6.3",
     "@open-wc/testing": "^3.1.5",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-replace": "^4.0.0",
+    "@types/socket.io-client": "^3.0.0",
     "@web/dev-server": "^0.1.31",
     "@web/dev-server-legacy": "^1.0.0",
     "@webcomponents/webcomponentsjs": "^2.6.0",
