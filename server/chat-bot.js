@@ -149,7 +149,7 @@ function answerRepeatingQuestion(io, mongoDoc) {
 }
 
 function isQuestion(msg) {
-  questionWords = ["what", "who", "where", "why", "when", "how"];
+  const questionWords = ["what", "who", "where", "why", "when", "how"];
   const firstWord = msg.split(/[ .:;?!,]+/)[0];
 
   if (msg.slice(-1) === "?" || questionWords.includes(firstWord)) {

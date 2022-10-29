@@ -24,10 +24,18 @@ http.listen(3000, () => {
 });
 
 const io = new Server(http, {
-  cors: {
-    origin: "*",
-  },
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"],
+        credentials: true
+    }
 });
+
+
+io.on("connection", (socket) => {
+  console.log("main page connection");
+  });
+
 
 io.on("connection", (socket) => {
   console.log("main page connection");
@@ -52,10 +60,11 @@ io.on("connection", (socket) => {
   });
 
   socket.on("message", (msg) => {
+    console.log(msg);
     const userId = socket.id;
     const user = getCurrentUser(userId);
 
-    io.to(defaultRoom).emit("message", formatMessage(user.username, msg));
+    io.to(defaultRoom).emit("message", formatMessage("user.username", msg));
 
     handleMessageByBot(io, msg, userId);
   });
@@ -71,7 +80,7 @@ io.on("connection", (socket) => {
         "message",
         formatMessage(
           botName,
-          `${leavingUser.username} just left our chat room!`
+          "someone just left our chat room!"
         )
       );
     }
