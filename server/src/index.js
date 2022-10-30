@@ -40,7 +40,8 @@ io.on("connection", (socket) => {
 io.on("connection", (socket) => {
   console.log("main page connection");
   socket.on("joinChat", ({ username }) => {
-    console.log("JoinChat");
+    console.log("JoinChat event identified");
+    console.log(`username = ${username}`);
     userJoin(socket.id, username);
     socket.join(defaultRoom);
 

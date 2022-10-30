@@ -62,8 +62,6 @@ export class DemoChatElement extends LitElement {
       },
     });
 
-    this.socket.emit("message", "hi");
-
     this.socket.emit("joinChat", { username });
 
     this.socket.on("new connection", console.log);
@@ -81,46 +79,16 @@ export class DemoChatElement extends LitElement {
 
   static styles = [style];
 
-  onButtonClick() {
-    this.count++;
-  }
-
-  onChange() {
-    this.value = e.target.value;
-    console.log(this.value);
+  get inputMessage() {
+    return this.renderRoot?.querySelector("#msg") ?? null;
   }
 
   onSubmit(e) {
     e.preventDefault();
     const form = this.shadowRoot.querySelector("form");
-
-    this.socket.emit("message", "hi there!");
-
-    // const data = new FormData(form);
-    // for (const [name,value] of data) {
-    //   console.log(name, ":", value)
-    // }
-
-    console.log(
-      `e.target.value = ${e.target.value}, form.target.value=${form.target}`
-    ); // successfully logs <form> element
-    window.setTimeout(() => {
-      console.log(form); // successfully logs <form> element
-      form.reset(); // resets form
-    }, 2000);
-
-    // e.preventDefault();
-    // const form = this.shadowRoot.querySelector("form");
-    // console.log(e.target, form);
-
-    // console.log(e);
-    // console.log("onSubmit runs");
-    // // const msg = e.target.elements.msg.value;
-
-    // // this.socket.emit("message", msg);
-
-    // form.reset();
-    // // e.target.elements.msg.value = "";
+    console.log(this.inputMessage.value);
+    this.socket.emit("message", this.inputMessage.value);
+    form.reset();
   }
 
   onJokeAsked() {
@@ -157,13 +125,12 @@ export class DemoChatElement extends LitElement {
           <form id="chat-form" @submit="${this.onSubmit}">
             <input
               id="msg"
-              @onBlur="${this.onChange}"
               type="text"
               placeholder="Enter Message"
               required
               autocomplete="off"
             />
-            <button>
+            <button @click=${this.logInput}>
               <div class="sendButton btn" id="send-button">
                 <i
                   class="fa fa-paper-plane send-not-hovered"
@@ -179,7 +146,6 @@ export class DemoChatElement extends LitElement {
           </form>
         </div>
       </div>
-      <button @click="${this.onButtonClick}">Number of clicks: ${count}</button>
     `;
   }
 }
