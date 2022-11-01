@@ -8,16 +8,15 @@ const { username } = Qs.parse(location.search, {
 
 // const chatForm = document.getElementById("chat-form");
 // const chatMessages = document.querySelector(".chat-messages");
-// const userAskedForJoke = document.getElementById("joke");
-// const userList = document.getElementById("users");
 
 // function displayUsersList(users) {
-//   userList.innerHTML = "";
-//   users.forEach((user) => {
-//     const li = document.createElement("li");
-//     li.innerHTML = `<i class="fa-solid fa-hat-wizard"></i> ${user.username}`;
-//     userList.appendChild(li);
-//   });
+  // console.log(`users in displayUsersList --->>> ${users}`);
+  // userList.innerHTML = "";
+  // users.forEach((user) => {
+  //   const li = document.createElement("li");
+  //   li.innerHTML = `<i class="fa-solid fa-hat-wizard"></i> ${user.username}`;
+  //   userList.appendChild(li);
+  // });
 // }
 
 // function displayMessage(message) {
@@ -35,32 +34,39 @@ const { username } = Qs.parse(location.search, {
 // }
 
 export class ChatContainer extends LitElement {
-  static get properties() {
-    return {
-      /**
-       * The name to say "Hello" to.
-       * @type {string}
-       */
-      name: { type: String },
 
-      /**
-       * The number of times the button has been clicked.
-       * @type {number}
-       */
-      count: { type: Number },
-    };
-  }
+  static properties = {
+    temp: {},
+    listUsers: {},
+    _listItems: {},
+  };
+
+
+  // static get properties() {
+  //   return {
+  //     /**
+  //      * The name to say "Hello" to.
+  //      * @type {string}
+  //      */
+  //     name: { type: String },
+
+  //     /**
+  //      * The number of times the button has been clicked.
+  //      * @type {number}
+  //      */
+  //     count: { type: Number },
+  //   };
+  // }
 
   constructor() {
     super();
-    this.name = "Bot";
-    this.count = 0;
-    this.value = "";
     this.socket = io("http://localhost:3000", {
       extraHeaders: {
         "Access-Control-Allow-Origin": "*",
       },
     });
+
+    this._listItems = [];
 
     this.socket.emit("joinChat", { username });
 
@@ -71,11 +77,11 @@ export class ChatContainer extends LitElement {
         usersList.push(obj.username);
       }
       console.log(usersList);
+      this._listItems = usersList;
+
       // displayUsersList(usersList);
       usersList = [];
     });
-
-    // console.log(`users in chat-container = ${this.renderRoot?.querySelector("#users") ?? null}`);
 
     this.socket.on("message", (message) => {
       console.log(message);
@@ -91,10 +97,10 @@ export class ChatContainer extends LitElement {
     return this.renderRoot?.querySelector("#msg") ?? null;
   }
 
-  get users() {
-    console.log(this.renderRoot?.querySelector("#users") ?? null);
-    return this.renderRoot?.querySelector("#users") ?? null;
-  }
+  // get users() {
+  //   console.log(this.renderRoot?.querySelector("#users") ?? null);
+  //   return this.renderRoot?.querySelector("#users") ?? null;
+  // }
 
   onSubmit(e) {
     e.preventDefault();
@@ -107,15 +113,6 @@ export class ChatContainer extends LitElement {
   onJokeAsked() {
     this.socket.emit("message", "I want a magical joke!");
   }
-
-  // displayUsersList(users) {
-  //   userList.innerHTML = "";
-  //   users.forEach((user) => {
-  //     const li = document.createElement("li");
-  //     li.innerHTML = `<i class="fa-solid fa-hat-wizard"></i> ${user.username}`;
-  //     userList.appendChild(li);
-  //   });
-  // }
 
   // TODO: retrieve the magical hat
   render() {
@@ -139,7 +136,11 @@ export class ChatContainer extends LitElement {
         <main class="chat-main">
           <div class="chat-sidebar">
             <h3>Users</h3>
-            <ul id="users"></ul>
+            <ul id="users">
+            ${this._listItems.map((item) =>
+              html`<li>${item}</li>`
+            )}
+            </ul>
           </div>
           <div class="chat-messages"></div>
         </main>

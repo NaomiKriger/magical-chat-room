@@ -107,7 +107,7 @@ async function getDocByQuestion(question) {
 }
 
 async function handleAnswer(msg) {
-  answer = msg;
+  var answer = msg;
   insertQuestionAndAnswerToDB(currentQuestion, answer);
   currentQuestion = "";
   userIdWhoAskedCurrentQuestion = "";
