@@ -82,7 +82,7 @@ export default css`
   }
 
   .chat-messages .bot-message {
-    background-color: var(--bot-background-color);
+    background-color: #BDB5D5;
   }
 
   .chat-messages .user-message {
@@ -105,7 +105,7 @@ export default css`
   }
 
   .chat-messages .bot-message .meta {
-    color: var(--bot-name-on-message-color);
+    color: #202020;
   }
 
   .chat-messages .user-message .meta {
@@ -114,7 +114,7 @@ export default css`
 
   .chat-messages .bot-message .meta span,
   .chat-messages .user-message .meta span {
-    color: var(--message-time-color);
+    color: #474747;
   }
 
   .chat-form-container {

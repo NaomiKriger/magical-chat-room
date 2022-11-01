@@ -6,9 +6,6 @@ const { username } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
 });
 
-// const chatForm = document.getElementById("chat-form");
-// const chatMessages = document.querySelector(".chat-messages");
-
 // function displayUsersList(users) {
   // console.log(`users in displayUsersList --->>> ${users}`);
   // userList.innerHTML = "";
@@ -19,28 +16,12 @@ const { username } = Qs.parse(location.search, {
   // });
 // }
 
-// function displayMessage(message) {
-//   const div = document.createElement("div");
-//   if (message.username == "The Magical Bot") {
-//     div.classList.add("bot-message");
-//   } else {
-//     div.classList.add("user-message");
-//   }
-//   div.innerHTML = `<p class="meta">${message.username}<span>${message.time}</span></p>
-//   <p class="text">
-//   ${message.text}
-//   </p>`;
-//   chatMessages.appendChild(div);
-// }
-
 export class ChatContainer extends LitElement {
-
   static properties = {
-    temp: {},
-    listUsers: {},
     _listItems: {},
+    messageToAdd: {},
+    messageInChat: {},
   };
-
 
   // static get properties() {
   //   return {
@@ -85,22 +66,33 @@ export class ChatContainer extends LitElement {
 
     this.socket.on("message", (message) => {
       console.log(message);
-      // displayMessage(message);
-
-      // chatMessages.scrollTop = chatMessages.scrollHeight;
+      this.displayMessage(message);
     });
   }
 
   static styles = [style];
 
+  displayMessage(message) {
+    const chatMessages = this.renderRoot?.querySelector(".chat-messages") ?? null;
+
+    const div = document.createElement("div");
+      if (message.username == "The Magical Bot") {
+        div.classList.add("bot-message");
+      } else {
+        div.classList.add("user-message");
+      }
+      div.innerHTML = `<p class="meta">${message.username}<span>${message.time}</span></p>
+      <p class="text">
+      ${message.text}
+      </p>`;
+
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
   get inputMessage() {
     return this.renderRoot?.querySelector("#msg") ?? null;
   }
-
-  // get users() {
-  //   console.log(this.renderRoot?.querySelector("#users") ?? null);
-  //   return this.renderRoot?.querySelector("#users") ?? null;
-  // }
 
   onSubmit(e) {
     e.preventDefault();
@@ -137,9 +129,7 @@ export class ChatContainer extends LitElement {
           <div class="chat-sidebar">
             <h3>Users</h3>
             <ul id="users">
-            ${this._listItems.map((item) =>
-              html`<li>${item}</li>`
-            )}
+              ${this._listItems.map((item) => html`<li>${item}</li>`)}
             </ul>
           </div>
           <div class="chat-messages"></div>
