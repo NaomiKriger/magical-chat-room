@@ -5,8 +5,11 @@ import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 const { username } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
 });
-console.log(username);
 
+// const chatForm = document.getElementById("chat-form");
+// const chatMessages = document.querySelector(".chat-messages");
+// const userAskedForJoke = document.getElementById("joke");
+// const userList = document.getElementById("users");
 
 // function displayUsersList(users) {
 //   userList.innerHTML = "";
@@ -61,23 +64,36 @@ export class ChatContainer extends LitElement {
 
     this.socket.emit("joinChat", { username });
 
-    this.socket.on("new connection", console.log);
+    var usersList = [];
+    this.socket.on("roomUsers", (users) => {
+      for (let i = 0; i < users["users"].length; i++) {
+        let obj = users["users"][i];
+        usersList.push(obj.username);
+      }
+      console.log(usersList);
+      // displayUsersList(usersList);
+      usersList = [];
+    });
 
-    // this.socket.on("roomUsers", ({ users }) => {
-    //   displayUsersList(users);
-    // });
+    // console.log(`users in chat-container = ${this.renderRoot?.querySelector("#users") ?? null}`);
 
-    // this.socket.on("message", (message) => {
-    //   displayMessage(message);
+    this.socket.on("message", (message) => {
+      console.log(message);
+      // displayMessage(message);
 
-    //   chatMessages.scrollTop = chatMessages.scrollHeight;
-    // });
+      // chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
   }
 
   static styles = [style];
 
   get inputMessage() {
     return this.renderRoot?.querySelector("#msg") ?? null;
+  }
+
+  get users() {
+    console.log(this.renderRoot?.querySelector("#users") ?? null);
+    return this.renderRoot?.querySelector("#users") ?? null;
   }
 
   onSubmit(e) {
@@ -91,6 +107,15 @@ export class ChatContainer extends LitElement {
   onJokeAsked() {
     this.socket.emit("message", "I want a magical joke!");
   }
+
+  // displayUsersList(users) {
+  //   userList.innerHTML = "";
+  //   users.forEach((user) => {
+  //     const li = document.createElement("li");
+  //     li.innerHTML = `<i class="fa-solid fa-hat-wizard"></i> ${user.username}`;
+  //     userList.appendChild(li);
+  //   });
+  // }
 
   // TODO: retrieve the magical hat
   render() {
@@ -127,7 +152,7 @@ export class ChatContainer extends LitElement {
               required
               autocomplete="off"
             />
-            <button @click=${this.logInput}>
+            <button>
               <div class="sendButton btn" id="send-button">
                 <i
                   class="fa fa-paper-plane send-not-hovered"

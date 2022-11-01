@@ -24,24 +24,15 @@ http.listen(3000, () => {
 });
 
 const io = new Server(http, {
-    cors: {
-        origin: "*",
-        methods: ["GET", "POST"],
-        credentials: true
-    }
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
 });
 
-
 io.on("connection", (socket) => {
-  console.log("main page connection");
-  });
-
-
-io.on("connection", (socket) => {
-  console.log("main page connection");
   socket.on("joinChat", ({ username }) => {
-    console.log("JoinChat event identified");
-    console.log(`username = ${username}`);
     userJoin(socket.id, username);
     socket.join(defaultRoom);
 
@@ -61,11 +52,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on("message", (msg) => {
-    console.log(msg);
     const userId = socket.id;
     const user = getCurrentUser(userId);
-
-    io.to(defaultRoom).emit("message", formatMessage("user.username", msg));
+    io.to(defaultRoom).emit("message", formatMessage(user.username, msg));
 
     handleMessageByBot(io, msg, userId);
   });
@@ -79,10 +68,7 @@ io.on("connection", (socket) => {
 
       socket.broadcast.emit(
         "message",
-        formatMessage(
-          botName,
-          "someone just left our chat room!"
-        )
+        formatMessage(botName, `${leavingUser.username} just left our chat room!`)
       );
     }
   });
