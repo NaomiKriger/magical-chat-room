@@ -1,6 +1,7 @@
 import { LitElement, html } from "lit";
 import style from "./chat-container.css";
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+import "./leave-room";
 
 const { username } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
@@ -89,13 +90,7 @@ export class ChatContainer extends LitElement {
           <button class="btn" id="joke" @click="${this.onJokeAsked}">
             I want a magical joke! <i class="fa-regular fa-face-laugh-beam"></i>
           </button>
-
-          <div class="hiddenText">
-            <span class="stay">Stay!</span>
-            <a href="index.html" button class="btn"
-              >Leave Room <i class="fa-solid fa-person-walking"></i
-            ></a>
-          </div>
+          <leave-room><leave-room/>
         </header>
         <main class="chat-main">
           <div class="chat-sidebar">
