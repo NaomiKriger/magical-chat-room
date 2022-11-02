@@ -6,38 +6,10 @@ const { username } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
 });
 
-// function displayUsersList(users) {
-  // console.log(`users in displayUsersList --->>> ${users}`);
-  // userList.innerHTML = "";
-  // users.forEach((user) => {
-  //   const li = document.createElement("li");
-  //   li.innerHTML = `<i class="fa-solid fa-hat-wizard"></i> ${user.username}`;
-  //   userList.appendChild(li);
-  // });
-// }
-
 export class ChatContainer extends LitElement {
   static properties = {
-    _listItems: {},
-    messageToAdd: {},
-    messageInChat: {},
+    _users: {},
   };
-
-  // static get properties() {
-  //   return {
-  //     /**
-  //      * The name to say "Hello" to.
-  //      * @type {string}
-  //      */
-  //     name: { type: String },
-
-  //     /**
-  //      * The number of times the button has been clicked.
-  //      * @type {number}
-  //      */
-  //     count: { type: Number },
-  //   };
-  // }
 
   constructor() {
     super();
@@ -47,21 +19,11 @@ export class ChatContainer extends LitElement {
       },
     });
 
-    this._listItems = [];
-
     this.socket.emit("joinChat", { username });
 
-    var usersList = [];
-    this.socket.on("roomUsers", (users) => {
-      for (let i = 0; i < users["users"].length; i++) {
-        let obj = users["users"][i];
-        usersList.push(obj.username);
-      }
-      console.log(usersList);
-      this._listItems = usersList;
-
-      // displayUsersList(usersList);
-      usersList = [];
+    this._users = [];
+    this.socket.on("roomUsers", (usersFromSocket) => {
+      this._users = this.displayUsers(usersFromSocket);
     });
 
     this.socket.on("message", (message) => {
@@ -73,21 +35,32 @@ export class ChatContainer extends LitElement {
   static styles = [style];
 
   displayMessage(message) {
-    const chatMessages = this.renderRoot?.querySelector(".chat-messages") ?? null;
+    const chatMessages =
+      this.renderRoot?.querySelector(".chat-messages") ?? null;
 
     const div = document.createElement("div");
-      if (message.username == "The Magical Bot") {
-        div.classList.add("bot-message");
-      } else {
-        div.classList.add("user-message");
-      }
-      div.innerHTML = `<p class="meta">${message.username}<span>${message.time}</span></p>
+    if (message.username == "The Magical Bot") {
+      div.classList.add("bot-message");
+    } else {
+      div.classList.add("user-message");
+    }
+    div.innerHTML = `<p class="meta">${message.username}<span>${message.time}</span></p>
       <p class="text">
       ${message.text}
       </p>`;
 
-      chatMessages.appendChild(div);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  displayUsers(users) {
+    var usersToDisplay = [];
+    for (let i = 0; i < users["users"].length; i++) {
+      let user = users["users"][i];
+      usersToDisplay.push(user.username);
+    }
+    console.log(usersToDisplay);
+    return usersToDisplay;
   }
 
   get inputMessage() {
@@ -106,7 +79,6 @@ export class ChatContainer extends LitElement {
     this.socket.emit("message", "I want a magical joke!");
   }
 
-  // TODO: retrieve the magical hat
   render() {
     return html`
       <div class="chat-container">
@@ -129,7 +101,7 @@ export class ChatContainer extends LitElement {
           <div class="chat-sidebar">
             <h3>Users</h3>
             <ul id="users">
-              ${this._listItems.map((item) => html`<li>${item}</li>`)}
+              ${this._users.map((user) => html`<li>${user}</li>`)}
             </ul>
           </div>
           <div class="chat-messages"></div>
