@@ -82,7 +82,7 @@ export default css`
   }
 
   .chat-messages .bot-message {
-    background-color: #BDB5D5;
+    background-color: #bdb5d5;
   }
 
   .chat-messages .user-message {

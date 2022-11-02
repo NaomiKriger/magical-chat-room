@@ -1,6 +1,8 @@
 import { LitElement, html } from "lit";
-import style from "./chat-container.css";
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+import Fontawesome from 'lit-fontawesome';
+import style from "./chat-container.css";
+import buttonStyle from "../shared/button-style.css"
 import "./leave-room";
 
 const { username } = Qs.parse(location.search, {
@@ -10,6 +12,7 @@ const { username } = Qs.parse(location.search, {
 export class ChatContainer extends LitElement {
   static properties = {
     _users: {},
+    chatRoomName: {}
   };
 
   constructor() {
@@ -19,6 +22,8 @@ export class ChatContainer extends LitElement {
         "Access-Control-Allow-Origin": "*",
       },
     });
+
+    this.chatRoomName = "Magical Chat Room";
 
     this.socket.emit("joinChat", { username });
 
@@ -33,7 +38,7 @@ export class ChatContainer extends LitElement {
     });
   }
 
-  static styles = [style];
+  static styles = [style, buttonStyle, Fontawesome];
 
   displayMessage(message) {
     const chatMessages =
@@ -85,7 +90,7 @@ export class ChatContainer extends LitElement {
       <div class="chat-container">
         <header class="chat-header">
           <h1>
-            Magical Chat Room <i class="fa fa-magic" aria-hidden="true"></i>
+            ${this.chatRoomName} <i class="fa fa-magic" aria-hidden="true"></i>
           </h1>
           <button class="btn" id="joke" @click="${this.onJokeAsked}">
             I want a magical joke! <i class="fa-regular fa-face-laugh-beam"></i>
