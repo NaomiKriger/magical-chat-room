@@ -1,13 +1,13 @@
 import { LitElement, html } from "lit";
 import style from "./join-container.css.js";
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
-import Fontawesome from 'lit-fontawesome';
+import sharedStyle from "../shared/shared-style.css";
+import Fontawesome from "lit-fontawesome";
 import "./join-chat-form";
+import { chatRoomName } from "../shared/constants.js";
 
 export class JoinContainer extends LitElement {
-  static properties = {
-    chatRoomName: {}
-  };
+  static properties = {};
 
   constructor() {
     super();
@@ -16,17 +16,16 @@ export class JoinContainer extends LitElement {
         "Access-Control-Allow-Origin": "*",
       },
     });
-    this.chatRoomName = "Magical Chat Room";
   }
 
-  static styles = [style, Fontawesome];
+  static styles = [style, sharedStyle, Fontawesome];
 
   render() {
     return html`
       <div class="join-container">
         <header class="join-header">
           <h1>
-            ${this.chatRoomName} <i class="fa fa-magic" aria-hidden="true"></i>
+            ${chatRoomName} <i class="fa fa-magic" aria-hidden="true"></i>
           </h1>
         </header>
         <main class="join-main">

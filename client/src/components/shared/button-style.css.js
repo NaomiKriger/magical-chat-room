@@ -6,8 +6,6 @@ export default css`
 
   button:hover {
     cursor: pointer;
-    border: none;
-    /* fixes border issues of the send button */
   }
 
   .btn {

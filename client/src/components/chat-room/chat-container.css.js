@@ -9,8 +9,6 @@ export default css`
     padding: 0;
   }
 
-  /* BOILER PLATE START */
-
   ul {
     list-style: none;
   }
@@ -19,15 +17,11 @@ export default css`
     text-decoration: none;
   }
 
-  h1:hover,
   h3:hover,
-  li:hover,
-  label:hover {
+  li:hover {
     color: black;
     transition: color 1s;
   }
-
-  /* BOILER PLATE END */
 
   /* CHAT PAGE */
 
@@ -153,33 +147,6 @@ export default css`
 
   .btn {
     padding: 5px 15px;
-    background: #e6e9ff;
-    color: #50394c;
-    border: none;
-    font-size: 17px;
-  }
-
-  .btn:hover {
-    border: 2px solid #e6e9ff;
-    background-color: #50394c;
-    color: #e6e9ff;
-    opacity: 0.8;
-    transition: 0.5s;
-  }
-
-  /*  TEXT UPON HOVERING THE LEAVE ROOM BUTTON */
-
-  .stay {
-    visibility: hidden;
-  }
-
-  .hiddenText:hover .stay {
-    position: relative;
-    visibility: visible;
-    border-radius: 6px;
-    color: #50394c;
-    background: #e6e9ff;
-    padding: 10px;
   }
 
   /*  MOVING SEND BUTTON  */

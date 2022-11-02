@@ -1,7 +1,7 @@
 import { css } from "lit";
 
 export default css`
-p {
+  p {
     margin-bottom: 20px;
   }
 

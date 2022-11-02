@@ -1,7 +1,7 @@
 import { LitElement, html } from "lit";
 import style from "./join-container.css.js";
 import formStyle from "./join-chat-form.css.js";
-import buttonStyle from "../shared/button-style.css"
+import buttonStyle from "../shared/button-style.css";
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 
 export class JoinChatForm extends LitElement {
@@ -31,6 +31,8 @@ export class JoinChatForm extends LitElement {
             id="username"
             placeholder="Magical username here"
             required
+            pattern="[A-Za-z]{2,}"
+            title="Username should be alphabetic and at least two characters"
           />
         </div>
         <button type="submit" class="btn">

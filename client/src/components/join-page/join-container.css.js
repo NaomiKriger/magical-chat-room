@@ -15,17 +15,11 @@ export default css`
     color: #fff;
   }
 
-  /* BOILER PLATE START */
-
   h1:hover,
-  h3:hover,
-  li:hover,
   label:hover {
     color: black;
     transition: color 1s;
   }
-
-  /* BOILER PLATE END */
 
   .join-header {
     text-align: center;

@@ -1,9 +1,11 @@
 import { LitElement, html } from "lit";
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
-import Fontawesome from 'lit-fontawesome';
-import style from "./chat-container.css";
-import buttonStyle from "../shared/button-style.css"
+import Fontawesome from "lit-fontawesome";
+import ChatContainerStyle from "./chat-container.css";
+import sharedStyle from "../shared/shared-style.css";
+import buttonStyle from "../shared/button-style.css";
 import "./leave-room";
+import { chatRoomName, botName } from "../shared/constants.js";
 
 const { username } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
@@ -12,7 +14,6 @@ const { username } = Qs.parse(location.search, {
 export class ChatContainer extends LitElement {
   static properties = {
     _users: {},
-    chatRoomName: {}
   };
 
   constructor() {
@@ -22,8 +23,6 @@ export class ChatContainer extends LitElement {
         "Access-Control-Allow-Origin": "*",
       },
     });
-
-    this.chatRoomName = "Magical Chat Room";
 
     this.socket.emit("joinChat", { username });
 
@@ -38,14 +37,14 @@ export class ChatContainer extends LitElement {
     });
   }
 
-  static styles = [style, buttonStyle, Fontawesome];
+  static styles = [ChatContainerStyle, buttonStyle, sharedStyle, Fontawesome];
 
   displayMessage(message) {
     const chatMessages =
       this.renderRoot?.querySelector(".chat-messages") ?? null;
 
     const div = document.createElement("div");
-    if (message.username == "The Magical Bot") {
+    if (message.username == botName) {
       div.classList.add("bot-message");
     } else {
       div.classList.add("user-message");
@@ -90,7 +89,7 @@ export class ChatContainer extends LitElement {
       <div class="chat-container">
         <header class="chat-header">
           <h1>
-            ${this.chatRoomName} <i class="fa fa-magic" aria-hidden="true"></i>
+            ${chatRoomName} <i class="fa fa-magic" aria-hidden="true"></i>
           </h1>
           <button class="btn" id="joke" @click="${this.onJokeAsked}">
             I want a magical joke! <i class="fa-regular fa-face-laugh-beam"></i>
@@ -101,6 +100,7 @@ export class ChatContainer extends LitElement {
           <div class="chat-sidebar">
             <h3>Users</h3>
             <ul id="users">
+            <li>${botName}</li>
               ${this._users.map((user) => html`<li>${user}</li>`)}
             </ul>
           </div>
