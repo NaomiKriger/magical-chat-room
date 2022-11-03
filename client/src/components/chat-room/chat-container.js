@@ -57,7 +57,7 @@ export class ChatContainer extends LitElement {
   render() {
     return html`
       <div class="chat-container">
-        <chat-header .this=${this} .socket=${this.socket} .myMessage=${this.myMessage} .this.myUsers=${this.myUsers}></chat-header>
+        <chat-header .this=${this} .socket=${this.socket}></chat-header>
         <main class="chat-main">
           <div class="chat-sidebar">
             <h3>Users</h3>
