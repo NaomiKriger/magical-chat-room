@@ -24,7 +24,7 @@ export class ChatContainer extends LitElement {
   );
 
   static properties = {
-    _users: {},
+    users: {},
   };
 
   constructor() {
@@ -37,9 +37,9 @@ export class ChatContainer extends LitElement {
 
     this.socket.emit("userJoinedChat", { username });
 
-    this._users = [];
+    this.users = [];
     this.socket.on("roomUsers", (usersFromSocket) => {
-      this._users = this.displayController.displayUsers(usersFromSocket);
+      this.users = this.displayController.displayUsers(usersFromSocket);
     });
 
     this.socket.on("message", (message) => {
@@ -57,13 +57,13 @@ export class ChatContainer extends LitElement {
   render() {
     return html`
       <div class="chat-container">
-        <chat-header .this=${this} .socket=${this.socket}></chat-header>
+        <chat-header .this=${this} .socket=${this.socket} .myMessage=${this.myMessage} .this.myUsers=${this.myUsers}></chat-header>
         <main class="chat-main">
           <div class="chat-sidebar">
             <h3>Users</h3>
             <ul id="users">
               <li>${botName}</li>
-              ${this._users.map((user) => html`<li>${user}</li>`)}
+              ${this.users.map((user) => html`<li>${user}</li>`)}
             </ul>
           </div>
           <div class="chat-messages"></div>

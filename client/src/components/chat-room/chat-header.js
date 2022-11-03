@@ -10,14 +10,9 @@ import { DisplayController } from "./controllers/displays";
 
 export class ChatHeader extends LitElement {
   displayController = new DisplayController(this, this.renderRoot);
-  messageSendingController = new MessageSendingController(
-    this,
-    this.socket
-  );
+  messageSendingController = new MessageSendingController(this, this.socket);
 
-  static properties = {
-    _users: {},
-  };
+  static properties = {};
 
   constructor() {
     super();
