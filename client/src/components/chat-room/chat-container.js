@@ -4,10 +4,12 @@ import Fontawesome from "lit-fontawesome";
 import ChatContainerStyle from "./style/chat-container.css";
 import sharedStyle from "../shared/shared-style.css";
 import buttonStyle from "../shared/button-style.css";
-import "./chat-header";
 import { botName } from "../shared/constants.js";
 import { DisplayController } from "./controllers/displays";
 import { MessageSendingController } from "./controllers/message-senders";
+import "./chat-header";
+import "./send-button";
+import "./chat-sidebar";
 
 const { username } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
@@ -57,7 +59,7 @@ export class ChatContainer extends LitElement {
   render() {
     return html`
       <div class="chat-container">
-        <chat-header .this=${this} .socket=${this.socket}></chat-header>
+        <chat-header></chat-header>
         <main class="chat-main">
           <div class="chat-sidebar">
             <h3>Users</h3>
