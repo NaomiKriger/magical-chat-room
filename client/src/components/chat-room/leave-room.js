@@ -1,8 +1,8 @@
 import { LitElement, html } from "lit";
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
-import ChatContainerStyle from "./chat-container.css";
+import ChatContainerStyle from "./style/chat-container.css";
 import buttonStyle from "../shared/button-style.css";
-import leaveRoomStyle from "./leave-room.css";
+import leaveRoomStyle from "./style/leave-room.css";
 
 export class LeaveRoom extends LitElement {
   static properties = {

@@ -1,6 +1,5 @@
 import { LitElement, html } from "lit";
 import style from "./join-container.css.js";
-import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 import sharedStyle from "../shared/shared-style.css";
 import Fontawesome from "lit-fontawesome";
 import "./join-chat-form";
@@ -11,11 +10,6 @@ export class JoinContainer extends LitElement {
 
   constructor() {
     super();
-    this.socket = io("http://localhost:3000", {
-      extraHeaders: {
-        "Access-Control-Allow-Origin": "*",
-      },
-    });
   }
 
   static styles = [style, sharedStyle, Fontawesome];
