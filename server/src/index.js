@@ -32,7 +32,7 @@ const io = new Server(http, {
 });
 
 io.on("connection", (socket) => {
-  socket.on("joinChat", ({ username }) => {
+  socket.on("userJoinedChat", ({ username }) => {
     userJoin(socket.id, username);
     socket.join(defaultRoom);
 

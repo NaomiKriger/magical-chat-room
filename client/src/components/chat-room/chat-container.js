@@ -6,12 +6,23 @@ import sharedStyle from "../shared/shared-style.css";
 import buttonStyle from "../shared/button-style.css";
 import "./leave-room";
 import { chatRoomName, botName } from "../shared/constants.js";
+import { DisplayController } from "./display-controller";
+import { MessageSendingController } from "./message-sending-controller";
 
 const { username } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
 });
 
 export class ChatContainer extends LitElement {
+  displayController = new DisplayController(this, this.renderRoot);
+  messageSendingController = new MessageSendingController(
+    this,
+    this.socket,
+    this.shadowRoot,
+    this.console,
+    this.inputMessage
+  );
+
   static properties = {
     _users: {},
   };
@@ -24,64 +35,23 @@ export class ChatContainer extends LitElement {
       },
     });
 
-    this.socket.emit("joinChat", { username });
+    this.socket.emit("userJoinedChat", { username });
 
     this._users = [];
     this.socket.on("roomUsers", (usersFromSocket) => {
-      this._users = this.displayUsers(usersFromSocket);
+      this._users = this.displayController.displayUsers(usersFromSocket);
     });
 
     this.socket.on("message", (message) => {
       console.log(message);
-      this.displayMessage(message);
+      this.displayController.displayMessage(message);
     });
   }
 
   static styles = [ChatContainerStyle, buttonStyle, sharedStyle, Fontawesome];
 
-  displayMessage(message) {
-    const chatMessages =
-      this.renderRoot?.querySelector(".chat-messages") ?? null;
-
-    const div = document.createElement("div");
-    if (message.username == botName) {
-      div.classList.add("bot-message");
-    } else {
-      div.classList.add("user-message");
-    }
-    div.innerHTML = `<p class="meta">${message.username}<span>${message.time}</span></p>
-      <p class="text">
-      ${message.text}
-      </p>`;
-
-    chatMessages.appendChild(div);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-
-  displayUsers(users) {
-    var usersToDisplay = [];
-    for (let i = 0; i < users["users"].length; i++) {
-      let user = users["users"][i];
-      usersToDisplay.push(user.username);
-    }
-    console.log(usersToDisplay);
-    return usersToDisplay;
-  }
-
   get inputMessage() {
     return this.renderRoot?.querySelector("#msg") ?? null;
-  }
-
-  onSubmit(e) {
-    e.preventDefault();
-    const form = this.shadowRoot.querySelector("form");
-    console.log(this.inputMessage.value);
-    this.socket.emit("message", this.inputMessage.value);
-    form.reset();
-  }
-
-  onJokeAsked() {
-    this.socket.emit("message", "I want a magical joke!");
   }
 
   render() {
@@ -91,7 +61,9 @@ export class ChatContainer extends LitElement {
           <h1>
             ${chatRoomName} <i class="fa fa-magic" aria-hidden="true"></i>
           </h1>
-          <button class="btn" id="joke" @click="${this.onJokeAsked}">
+          <button class="btn" id="joke" @click="${
+            this.messageSendingController.onJokeAsked
+          }">
             I want a magical joke! <i class="fa-regular fa-face-laugh-beam"></i>
           </button>
           <leave-room><leave-room/>
@@ -107,7 +79,9 @@ export class ChatContainer extends LitElement {
           <div class="chat-messages"></div>
         </main>
         <div class="chat-form-container">
-          <form id="chat-form" @submit="${this.onSubmit}">
+          <form id="chat-form" @submit="${
+            this.messageSendingController.onSubmit
+          }">
             <input
               id="msg"
               type="text"

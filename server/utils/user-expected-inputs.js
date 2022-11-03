@@ -10,7 +10,12 @@ export const userGreeting = [
   "howdy",
 ];
 
-export const userUnsatisfied = ["i'm bored", "i am bored", "you are boring", "you're boring"];
+export const userUnsatisfied = [
+  "i'm bored",
+  "i am bored",
+  "you are boring",
+  "you're boring",
+];
 
 export const userLikesBotOrMember = [
   "you're nice",
@@ -21,11 +26,8 @@ export const userLikesBotOrMember = [
   "you are great",
 ];
 
-export const userChecksIfBotIsReal =  ["are you a real person?", "are you real?", "are you a bot?"];
-
-// module.exports = {
-//   userGreeting,
-//   userUnsatisfied,
-//   userLikesBotOrMember,
-//   userChecksIfBotIsReal,
-// };
+export const userChecksIfBotIsReal = [
+  "are you a real person?",
+  "are you real?",
+  "are you a bot?",
+];

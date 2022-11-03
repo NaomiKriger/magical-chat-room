@@ -88,13 +88,3 @@ export const botPrefixWhenAnswerIsKnown = [
   "I'll get that!",
   "That is a wonderful question!",
 ];
-
-// module.exports = {
-//   answersForGreetings,
-//   answersForUnsatisfiedUser,
-//   answersForNotFunnyStatments,
-//   answersForUserLikesBotOrMember,
-//   answersForCheckingIfBotIsReal,
-//   jokes,
-//   botPrefixWhenAnswerIsKnown,
-// };
