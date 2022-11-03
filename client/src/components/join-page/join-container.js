@@ -1,5 +1,5 @@
 import { LitElement, html } from "lit";
-import style from "./join-container.css.js";
+import style from "./style/join-container.css.js";
 import sharedStyle from "../shared/shared-style.css";
 import Fontawesome from "lit-fontawesome";
 import "./join-chat-form";
