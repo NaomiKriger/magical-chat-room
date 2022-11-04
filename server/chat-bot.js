@@ -1,10 +1,10 @@
-import { default as mongodb } from 'mongodb';
+import { default as mongodb } from "mongodb";
 const MongoClient = mongodb.MongoClient;
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 
 import formatMessage from "./utils/messages.js";
-import { botName, defaultRoom } from "./utils/constants.js";
+import { defaultRoom, botIconAndName } from "./utils/constants.js";
 import {
   userGreeting,
   userUnsatisfied,
@@ -39,7 +39,10 @@ function emitBotAnswer(
   messageDelayMS = delayFirstBotMessageMS
 ) {
   setTimeout(() => {
-    io.to(defaultRoom).emit("message", formatMessage(botName, botResponse));
+    io.to(defaultRoom).emit(
+      "message",
+      formatMessage(`${botIconAndName}`, botResponse)
+    );
   }, messageDelayMS);
 }
 

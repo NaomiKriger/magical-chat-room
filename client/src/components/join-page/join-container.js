@@ -1,6 +1,5 @@
 import { LitElement, html } from "lit";
 import style from "./style/join-container.css.js";
-import sharedStyle from "../shared/shared-style.css";
 import "./join-chat-form";
 import "./join-header";
 
@@ -11,7 +10,7 @@ export class JoinContainer extends LitElement {
     super();
   }
 
-  static styles = [style, sharedStyle];
+  static styles = [style];
 
   render() {
     return html`

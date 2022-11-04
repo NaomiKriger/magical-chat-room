@@ -2,14 +2,11 @@ import { LitElement, html } from "lit";
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 import Fontawesome from "lit-fontawesome";
 import ChatContainerStyle from "./style/chat-container.css";
-import sharedStyle from "../shared/shared-style.css";
 import buttonStyle from "../shared/button-style.css";
 import { botName } from "../shared/constants.js";
 import { DisplayController } from "./controllers/displays";
 import { MessageSendingController } from "./controllers/message-senders";
 import "./chat-header";
-import "./send-button";
-import "./chat-sidebar";
 
 const { username } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
@@ -26,7 +23,7 @@ export class ChatContainer extends LitElement {
   );
 
   static properties = {
-    users: {},
+    users: { type: Array },
   };
 
   constructor() {
@@ -50,7 +47,7 @@ export class ChatContainer extends LitElement {
     });
   }
 
-  static styles = [ChatContainerStyle, buttonStyle, sharedStyle, Fontawesome];
+  static styles = [ChatContainerStyle, buttonStyle, Fontawesome];
 
   get inputMessage() {
     return this.renderRoot?.querySelector("#msg") ?? null;
@@ -59,13 +56,18 @@ export class ChatContainer extends LitElement {
   render() {
     return html`
       <div class="chat-container">
-        <chat-header></chat-header>
+        <chat-header .this=${this} .socket=${this.socket}></chat-header>
         <main class="chat-main">
           <div class="chat-sidebar">
-            <h3>Users</h3>
+            <h3><i class="fa fa-users" aria-hidden="true"></i> Users</h3>
             <ul id="users">
-              <li>${botName}</li>
-              ${this.users.map((user) => html`<li>${user}</li>`)}
+              <li><i class="fas fa-robot"></i> ${botName}</li>
+              ${this.users.map(
+                (user) =>
+                  html`<li>
+                    <i class="fa fa-user" aria-hidden="true"></i> ${user}
+                  </li>`
+              )}
             </ul>
           </div>
           <div class="chat-messages"></div>

@@ -3,28 +3,24 @@ import style from "./background-lights.css.js";
 
 export class BackgroundLights extends LitElement {
   static properties = {
-    className: {},
+    className: { type: String },
+    lights: { type: Array },
   };
 
   constructor() {
     super();
 
     this.className = "light";
+    this.lights = Array.from({ length: 9 }, (_, i) => i + 1);
   }
 
   static styles = [style];
 
   render() {
     return html`
-      <div class="${this.className} ${this.className}1"></div>
-      <div class="${this.className} ${this.className}2"></div>
-      <div class="${this.className} ${this.className}3"></div>
-      <div class="${this.className} ${this.className}4"></div>
-      <div class="${this.className} ${this.className}5"></div>
-      <div class="${this.className} ${this.className}6"></div>
-      <div class="${this.className} ${this.className}7"></div>
-      <div class="${this.className} ${this.className}8"></div>
-      <div class="${this.className} ${this.className}9"></div>
+      ${this.lights.map(
+        (i) => html`<div class="${this.className} ${this.className}${i}"></div>`
+      )}
     `;
   }
 }

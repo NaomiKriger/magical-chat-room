@@ -1,37 +1,38 @@
 import { LitElement, html } from "lit";
-import style from "./style/join-container.css.js";
+import joinContainerStyle from "./style/join-container.css.js";
 import formStyle from "./style/join-chat-form.css.js";
 import buttonStyle from "../shared/button-style.css";
 
 export class JoinChatForm extends LitElement {
-  static get properties() {
-    return {};
-  }
+  static properties = {
+    username: { type: String },
+    pattern: { type: String },
+  };
 
   constructor() {
     super();
+    this.username = "username";
+    this.pattern = "[A-Za-z]{2,}";
   }
 
-  static styles = [style, formStyle, buttonStyle];
+  static styles = [joinContainerStyle, formStyle, buttonStyle];
 
   render() {
     return html`
       <form action="chat.html">
         <div class="form-control">
-          <label for="username">Username</label>
+          <label for=${this.username}>Username</label>
           <input
             type="text"
-            name="username"
-            id="username"
+            name=${this.username}
+            id=${this.username}
             placeholder="Magical username here"
             required
-            pattern="[A-Za-z]{2,}"
+            pattern=${this.pattern}
             title="Username should be alphabetic and at least two characters"
           />
         </div>
-        <button type="submit" class="btn">
-          Join Chat <i class="fa-solid fa-hat-wizard"></i>
-        </button>
+        <button type="submit" class="btn">Join Chat</button>
       </form>
     `;
   }

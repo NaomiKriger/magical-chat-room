@@ -2,10 +2,10 @@ import { css } from "lit";
 
 export default css`
   :host {
-  }
-
-  body {
     animation: fadeIn;
+    color: white;
+    font-size: 35px;
+    font-family: sans;
   }
 
   .header {
@@ -13,10 +13,6 @@ export default css`
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: "Roboto", sans-serif;
-    font-weight: 200;
-    color: white;
-    font-size: 2em;
   }
 
   #head1,

@@ -1,8 +1,6 @@
 import { css } from "lit";
 
 export default css`
-  :host {
-  }
   * {
     box-sizing: border-box;
     margin: 0;
@@ -17,13 +15,12 @@ export default css`
     text-decoration: none;
   }
 
+  h1:hover,
   h3:hover,
   li:hover {
     color: black;
     transition: color 1s;
   }
-
-  /* CHAT PAGE */
 
   .chat-container {
     max-width: 1100px;

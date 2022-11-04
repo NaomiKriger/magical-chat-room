@@ -12,7 +12,7 @@ import {
   deleteUser,
   getRoomUsers,
 } from "../utils/users.js";
-import { botName, defaultRoom } from "../utils/constants.js";
+import { defaultRoom, botIconAndName } from "../utils/constants.js";
 import handleMessageByBot from "../chat-bot.js";
 
 const app = express();
@@ -38,13 +38,16 @@ io.on("connection", (socket) => {
 
     socket.emit(
       "message",
-      formatMessage(botName, `Welcome ${username} to our magical chat!`)
+      formatMessage(
+        `${botIconAndName}`,
+        `Welcome ${username} to our magical chat!`
+      )
     );
 
     // broadcast to everybody except the user that connected
     socket.broadcast.emit(
       "message",
-      formatMessage(botName, `${username} joined our chat room!`)
+      formatMessage(`${botIconAndName}`, `${username} joined our chat room!`)
     );
 
     // update users list view
@@ -54,7 +57,13 @@ io.on("connection", (socket) => {
   socket.on("message", (msg) => {
     const userId = socket.id;
     const user = getCurrentUser(userId);
-    io.to(defaultRoom).emit("message", formatMessage(user.username, msg));
+    io.to(defaultRoom).emit(
+      "message",
+      formatMessage(
+        `<i class="fa fa-user" aria-hidden="true"></i> ${user.username}`,
+        msg
+      )
+    );
 
     handleMessageByBot(io, msg, userId);
   });
@@ -68,7 +77,10 @@ io.on("connection", (socket) => {
 
       socket.broadcast.emit(
         "message",
-        formatMessage(botName, `${leavingUser.username} just left our chat room!`)
+        formatMessage(
+          `${botIconAndName}`,
+          `${leavingUser.username} just left our chat room!`
+        )
       );
     }
   });

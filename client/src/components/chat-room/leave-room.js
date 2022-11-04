@@ -16,9 +16,7 @@ export class LeaveRoom extends LitElement {
     return html`
       <div class="hiddenText">
         <span class="stay">Stay!</span>
-        <a href="index.html" button class="btn"
-          >Leave Room <i class="fa-solid fa-person-walking"></i
-        ></a>
+        <a href="index.html" button class="btn">Leave Room</a>
       </div>
     `;
   }

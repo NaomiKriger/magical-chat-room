@@ -1,9 +1,6 @@
 import { css } from "lit";
 
 export default css`
-  :host {
-  }
-
   .light {
     position: absolute;
     width: 0px;

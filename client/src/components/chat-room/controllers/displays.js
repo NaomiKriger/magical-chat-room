@@ -1,4 +1,4 @@
-import { botName } from "../../shared/constants.js";
+import { botIconAndName } from "../../shared/constants.js";
 
 export class DisplayController {
   host;
@@ -14,7 +14,7 @@ export class DisplayController {
       this.host.renderRoot?.querySelector(".chat-messages") ?? null;
 
     const div = document.createElement("div");
-    if (message.username == botName) {
+    if (message.username == `${botIconAndName}`) {
       div.classList.add("bot-message");
     } else {
       div.classList.add("user-message");
