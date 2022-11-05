@@ -1,5 +1,5 @@
 import { LitElement, html } from "lit";
-import style from "./style/fading-text.css";
+import style from "./fading-text.css";
 
 export class FadingText extends LitElement {
   static properties = {

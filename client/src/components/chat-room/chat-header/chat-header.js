@@ -1,11 +1,11 @@
 import { LitElement, html } from "lit";
 import Fontawesome from "lit-fontawesome";
-import ChatContainerStyle from "./style/chat-container.css";
-import buttonStyle from "../shared/button-style.css";
-import "./leave-room";
-import { chatRoomName } from "../shared/constants.js";
-import { MessageSendingController } from "./controllers/message-senders";
-import { DisplayController } from "./controllers/displays";
+import ChatContainerStyle from "../chat-container/chat-container.css";
+import buttonStyle from "../../../styles/button-style.css";
+import "../leave-room/leave-room";
+import { chatRoomName } from "../../../constants.js";
+import { MessageSendingController } from "../../../controllers/message-senders";
+import { DisplayController } from "../../../controllers/displays";
 
 export class ChatHeader extends LitElement {
   displayController = new DisplayController(this, this.renderRoot);

@@ -1,7 +1,7 @@
 import { LitElement, html } from "lit";
-import style from "./style/join-container.css.js";
+import style from "../join-container/join-container.css";
 import Fontawesome from "lit-fontawesome";
-import { chatRoomName } from "../shared/constants.js";
+import { chatRoomName } from "../../../constants";
 
 export class JoinHeader extends LitElement {
   static properties = {};

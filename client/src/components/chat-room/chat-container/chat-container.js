@@ -1,12 +1,12 @@
 import { LitElement, html } from "lit";
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 import Fontawesome from "lit-fontawesome";
-import ChatContainerStyle from "./style/chat-container.css";
-import buttonStyle from "../shared/button-style.css";
-import { botName } from "../shared/constants.js";
-import { DisplayController } from "./controllers/displays";
-import { MessageSendingController } from "./controllers/message-senders";
-import "./chat-header";
+import ChatContainerStyle from "./chat-container.css";
+import buttonStyle from "../../../styles/button-style.css";
+import { botName } from "../../../constants.js";
+import { DisplayController } from "../../../controllers/displays";
+import { MessageSendingController } from "../../../controllers/message-senders";
+import "../chat-header/chat-header";
 
 const { username } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,

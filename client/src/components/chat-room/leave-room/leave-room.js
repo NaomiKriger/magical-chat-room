@@ -1,7 +1,7 @@
 import { LitElement, html } from "lit";
-import ChatContainerStyle from "./style/chat-container.css";
-import buttonStyle from "../shared/button-style.css";
-import leaveRoomStyle from "./style/leave-room.css";
+import ChatContainerStyle from "../chat-container/chat-container.css";
+import buttonStyle from "../../../styles/button-style.css";
+import leaveRoomStyle from "../leave-room/leave-room.css";
 
 export class LeaveRoom extends LitElement {
   static properties = {};

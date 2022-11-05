@@ -1,7 +1,7 @@
 import { LitElement, html } from "lit";
-import joinContainerStyle from "./style/join-container.css.js";
-import formStyle from "./style/join-chat-form.css.js";
-import buttonStyle from "../shared/button-style.css";
+import joinContainerStyle from "../join-container/join-container.css.js";
+import formStyle from "./join-chat-form.css.js";
+import buttonStyle from "../../../styles/button-style.css";
 
 export class JoinChatForm extends LitElement {
   static properties = {

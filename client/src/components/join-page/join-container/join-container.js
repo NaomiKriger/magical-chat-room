@@ -1,7 +1,7 @@
 import { LitElement, html } from "lit";
-import style from "./style/join-container.css.js";
-import "./join-chat-form";
-import "./join-header";
+import style from "./join-container.css.js";
+import "../join-chat-form/join-chat-form";
+import "../join-header/join-header";
 
 export class JoinContainer extends LitElement {
   static properties = {};

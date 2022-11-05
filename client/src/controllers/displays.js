@@ -1,4 +1,4 @@
-import { botIconAndName } from "../../shared/constants.js";
+import { botIconAndName } from "../constants.js";
 
 export class DisplayController {
   host;
