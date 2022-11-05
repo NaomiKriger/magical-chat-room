@@ -7,13 +7,13 @@ export class FadingText extends LitElement {
     idName: { type: String },
   };
 
+  static styles = [style];
+
   constructor() {
     super();
     this.className = "header";
     this.idName = "head";
   }
-
-  static styles = [style];
 
   render() {
     return html`

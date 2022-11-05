@@ -11,11 +11,11 @@ export class ChatHeader extends LitElement {
   displayController = new DisplayController(this, this.renderRoot);
   messageSendingController = new MessageSendingController(this, this.socket);
 
+  static styles = [ChatContainerStyle, buttonStyle, Fontawesome];
+
   constructor() {
     super();
   }
-
-  static styles = [ChatContainerStyle, buttonStyle, Fontawesome];
 
   render() {
     return html`

@@ -25,6 +25,8 @@ export class ChatContainer extends LitElement {
     users: { type: Array },
   };
 
+  static styles = [ChatContainerStyle, buttonStyle, Fontawesome];
+
   constructor() {
     super();
     this.socket = io("http://localhost:3000", {
@@ -44,8 +46,6 @@ export class ChatContainer extends LitElement {
       this.displayController.displayMessage(message);
     });
   }
-
-  static styles = [ChatContainerStyle, buttonStyle, Fontawesome];
 
   get inputMessage() {
     return this.renderRoot?.querySelector("#msg");

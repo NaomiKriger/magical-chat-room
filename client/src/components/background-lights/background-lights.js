@@ -7,14 +7,14 @@ export class BackgroundLights extends LitElement {
     lights: { type: Array },
   };
 
+  static styles = [style];
+
   constructor() {
     super();
 
     this.className = "light";
     this.lights = Array.from({ length: 9 }, (_, i) => i + 1);
   }
-
-  static styles = [style];
 
   render() {
     return html`

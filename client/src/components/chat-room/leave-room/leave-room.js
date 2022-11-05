@@ -4,12 +4,11 @@ import buttonStyle from "../../../styles/button-style.css";
 import leaveRoomStyle from "../leave-room/leave-room.css";
 
 export class LeaveRoom extends LitElement {
+  static styles = [ChatContainerStyle, buttonStyle, leaveRoomStyle];
 
   constructor() {
     super();
   }
-
-  static styles = [ChatContainerStyle, buttonStyle, leaveRoomStyle];
 
   render() {
     return html`

@@ -9,13 +9,13 @@ export class JoinChatForm extends LitElement {
     pattern: { type: String },
   };
 
+  static styles = [joinContainerStyle, formStyle, buttonStyle];
+
   constructor() {
     super();
     this.username = "username";
     this.pattern = "[A-Za-z]{2,}";
   }
-
-  static styles = [joinContainerStyle, formStyle, buttonStyle];
 
   render() {
     return html`

@@ -4,12 +4,11 @@ import "../join-chat-form/join-chat-form";
 import "../join-header/join-header";
 
 export class JoinContainer extends LitElement {
+  static styles = [style];
 
   constructor() {
     super();
   }
-
-  static styles = [style];
 
   render() {
     return html`
