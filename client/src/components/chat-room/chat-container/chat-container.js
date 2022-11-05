@@ -3,7 +3,7 @@ import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 import Fontawesome from "lit-fontawesome";
 import ChatContainerStyle from "./chat-container.css";
 import buttonStyle from "../../../styles/button-style.css";
-import { botName } from "../../../constants.js";
+import commons from "../../../../../commons.json" assert { type: "json" };
 import { DisplayController } from "../../../controllers/displays";
 import { MessageSendingController } from "../../../controllers/message-senders";
 import "../chat-header/chat-header";
@@ -18,7 +18,6 @@ export class ChatContainer extends LitElement {
     this,
     this.socket,
     this.shadowRoot,
-    this.console,
     this.inputMessage
   );
 
@@ -42,7 +41,6 @@ export class ChatContainer extends LitElement {
     });
 
     this.socket.on("message", (message) => {
-      console.log(message);
       this.displayController.displayMessage(message);
     });
   }
@@ -50,7 +48,7 @@ export class ChatContainer extends LitElement {
   static styles = [ChatContainerStyle, buttonStyle, Fontawesome];
 
   get inputMessage() {
-    return this.renderRoot?.querySelector("#msg") ?? null;
+    return this.renderRoot?.querySelector("#msg");
   }
 
   render() {
@@ -61,7 +59,7 @@ export class ChatContainer extends LitElement {
           <div class="chat-sidebar">
             <h3><i class="fa fa-users" aria-hidden="true"></i> Users</h3>
             <ul id="users">
-              <li><i class="fas fa-robot"></i> ${botName}</li>
+              <li><i class="fas fa-robot"></i> ${commons.botName}</li>
               ${this.users.map(
                 (user) =>
                   html`<li>

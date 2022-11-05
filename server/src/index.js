@@ -12,8 +12,9 @@ import {
   deleteUser,
   getRoomUsers,
 } from "../utils/users.js";
-import { defaultRoom, botIconAndName } from "../utils/constants.js";
-import handleMessageByBot from "../chat-bot.js";
+import { defaultRoom } from "./constants.js";
+import commons from "../../commons.json" assert { type: "json" };
+import handleMessageByBot from "./chat-bot.js";
 
 const app = express();
 app.use(cors());
@@ -39,7 +40,7 @@ io.on("connection", (socket) => {
     socket.emit(
       "message",
       formatMessage(
-        `${botIconAndName}`,
+        `${commons.botIconAndName}`,
         `Welcome ${username} to our magical chat!`
       )
     );
@@ -47,11 +48,11 @@ io.on("connection", (socket) => {
     // broadcast to everybody except the user that connected
     socket.broadcast.emit(
       "message",
-      formatMessage(`${botIconAndName}`, `${username} joined our chat room!`)
+      formatMessage(`${commons.botIconAndName}`, `${username} joined our chat room!`)
     );
 
     // update users list view
-    io.to(defaultRoom).emit("roomUsers", { users: getRoomUsers() });
+    io.to(defaultRoom).emit("roomUsers", getRoomUsers());
   });
 
   socket.on("message", (msg) => {
@@ -73,12 +74,12 @@ io.on("connection", (socket) => {
 
     if (leavingUser) {
       // update users list view
-      io.to(defaultRoom).emit("roomUsers", { users: getRoomUsers() });
+      io.to(defaultRoom).emit("roomUsers", getRoomUsers());
 
       socket.broadcast.emit(
         "message",
         formatMessage(
-          `${botIconAndName}`,
+          `${commons.botIconAndName}`,
           `${leavingUser.username} just left our chat room!`
         )
       );

@@ -1,4 +1,4 @@
-import { botIconAndName } from "../constants.js";
+import commons from "../../../commons.json" assert { type: "json" };
 
 export class DisplayController {
   host;
@@ -10,30 +10,30 @@ export class DisplayController {
   }
 
   displayMessage(message) {
-    const chatMessages =
-      this.host.renderRoot?.querySelector(".chat-messages") ?? null;
+    const chatMessages = this.host.renderRoot?.querySelector(".chat-messages");
 
-    const div = document.createElement("div");
-    if (message.username == `${botIconAndName}`) {
-      div.classList.add("bot-message");
+    const messageElement = document.createElement("div");
+    if (message.username === `${commons.botIconAndName}`) {
+      messageElement.classList.add("bot-message");
     } else {
-      div.classList.add("user-message");
+      messageElement.classList.add("user-message");
     }
-    div.innerHTML = `<p class="meta">${message.username}<span>${message.time}</span></p>
+    messageElement.innerHTML = `<p class="meta">${message.username}<span>${message.time}</span></p>
       <p class="text">
       ${message.text}
       </p>`;
 
-    chatMessages.appendChild(div);
+    chatMessages.appendChild(messageElement);
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 
   displayUsers(users) {
-    var usersToDisplay = [];
-    for (let i = 0; i < users["users"].length; i++) {
-      let user = users["users"][i];
+    let usersToDisplay = [];
+
+    users.forEach((user) => {
       usersToDisplay.push(user.username);
-    }
+    });
+
     return usersToDisplay;
   }
 }

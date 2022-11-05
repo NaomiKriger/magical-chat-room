@@ -3,15 +3,15 @@ import { css } from "lit";
 export default css`
   .light {
     position: absolute;
-    width: 0px;
+    width: 0;
     opacity: 0.75;
     background-color: white;
     box-shadow: #e9f1f1 0px 0px 20px 2px;
     opacity: 0;
     top: 100vh;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
+    bottom: 0;
+    left: 0;
+    right: 0;
     margin: auto;
   }
 

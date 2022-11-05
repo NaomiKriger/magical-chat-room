@@ -3,14 +3,15 @@ const MongoClient = mongodb.MongoClient;
 import dotenv from "dotenv";
 dotenv.config();
 
-import formatMessage from "./utils/messages.js";
-import { defaultRoom, botIconAndName } from "./utils/constants.js";
+import formatMessage from "../utils/messages.js";
+import { defaultRoom} from "./constants.js";
+import commons from "../../commons.json" assert { type: "json" };
 import {
   userGreeting,
   userUnsatisfied,
   userLikesBotOrMember,
   userChecksIfBotIsReal,
-} from "./utils/user-expected-inputs.js";
+} from "../utils/user-expected-inputs.js";
 import {
   answersForGreetings,
   answersForUnsatisfiedUser,
@@ -19,15 +20,15 @@ import {
   answersForCheckingIfBotIsReal,
   jokes,
   botPrefixWhenAnswerIsKnown,
-} from "./utils/bot-answers-and-statements.js";
+} from "../utils/bot-answers-and-statements.js";
 
 const mongo = new MongoClient(process.env.DATABASE_URI);
 
 const delayFirstBotMessageMS = 600;
 const delaySecondBotMessageMS = 1300;
 
-var currentQuestion = "";
-var userIdWhoAskedCurrentQuestion = "";
+let currentQuestion = "";
+let userIdWhoAskedCurrentQuestion = "";
 
 function parseMessage(msg) {
   return msg.toLowerCase().replace(/!+$/, "");
@@ -41,14 +42,14 @@ function emitBotAnswer(
   setTimeout(() => {
     io.to(defaultRoom).emit(
       "message",
-      formatMessage(`${botIconAndName}`, botResponse)
+      formatMessage(`${commons.botIconAndName}`, botResponse)
     );
   }, messageDelayMS);
 }
 
 export default async function handleMessageByBot(io, msg, userId) {
   msg = parseMessage(msg);
-  if (msg == "i want a magical joke") {
+  if (msg === "i want a magical joke") {
     tellJoke(io);
     return;
   }
@@ -93,7 +94,7 @@ async function handleQuestion(io, msg, userId) {
 }
 
 async function getDocByQuestion(question) {
-  var docInDb = null;
+  let docInDb = null;
   try {
     await mongo.connect();
     const db = mongo.db("chat_room");
@@ -110,7 +111,7 @@ async function getDocByQuestion(question) {
 }
 
 async function handleAnswer(msg) {
-  var answer = msg;
+  let answer = msg;
   insertQuestionAndAnswerToDB(currentQuestion, answer);
   currentQuestion = "";
   userIdWhoAskedCurrentQuestion = "";

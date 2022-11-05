@@ -1,0 +1,6 @@
+{
+  "botName": "The Magical Bot",
+  "botIcon": "<i class='fas fa-robot'></i>",
+  "botIconAndName": "<i class='fas fa-robot'></i> The Magical Bot",
+  "userIcon": "<i class='fa fa-user' aria-hidden='true'></i>"
+}

@@ -4,7 +4,6 @@ import buttonStyle from "../../../styles/button-style.css";
 import leaveRoomStyle from "../leave-room/leave-room.css";
 
 export class LeaveRoom extends LitElement {
-  static properties = {};
 
   constructor() {
     super();

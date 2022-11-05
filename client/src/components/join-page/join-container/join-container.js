@@ -4,7 +4,6 @@ import "../join-chat-form/join-chat-form";
 import "../join-header/join-header";
 
 export class JoinContainer extends LitElement {
-  static properties = {};
 
   constructor() {
     super();

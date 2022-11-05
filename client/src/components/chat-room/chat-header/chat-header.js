@@ -11,8 +11,6 @@ export class ChatHeader extends LitElement {
   displayController = new DisplayController(this, this.renderRoot);
   messageSendingController = new MessageSendingController(this, this.socket);
 
-  static properties = {};
-
   constructor() {
     super();
   }
@@ -22,13 +20,13 @@ export class ChatHeader extends LitElement {
   render() {
     return html`
     <header class="chat-header">
-    <h1>
-      ${chatRoomName} <i class="fa fa-magic" aria-hidden="true"></i>
-    </h1>
-    <button class="btn" id="joke" @click="${this.messageSendingController.onJokeAsked}">
-      I want a magical joke!
-    </button>
-    <leave-room><leave-room/>
+      <h1>
+        ${chatRoomName} <i class="fa fa-magic" aria-hidden="true"></i>
+      </h1>
+      <button class="btn" id="joke" @click="${this.messageSendingController.onJokeAsked}">
+        I want a magical joke!
+      </button>
+      <leave-room><leave-room/>
   </header>`;
   }
 }

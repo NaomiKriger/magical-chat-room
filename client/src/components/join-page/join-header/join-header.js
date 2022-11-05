@@ -4,7 +4,6 @@ import Fontawesome from "lit-fontawesome";
 import { chatRoomName } from "../../../constants";
 
 export class JoinHeader extends LitElement {
-  static properties = {};
 
   constructor() {
     super();
