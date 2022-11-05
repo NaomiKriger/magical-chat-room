@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import formatMessage from "../utils/messages.js";
-import { defaultRoom} from "./constants.js";
+import { defaultRoom } from "./constants.js";
 import commons from "../../commons.json" assert { type: "json" };
 import {
   userGreeting,
@@ -41,7 +41,7 @@ function emitBotAnswer(
 ) {
   setTimeout(() => {
     io.to(defaultRoom).emit(
-      "message",
+      commons.events.message,
       formatMessage(`${commons.botIconAndName}`, botResponse)
     );
   }, messageDelayMS);

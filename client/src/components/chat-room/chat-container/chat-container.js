@@ -33,14 +33,14 @@ export class ChatContainer extends LitElement {
       },
     });
 
-    this.socket.emit("userJoinedChat", { username });
+    this.socket.emit(commons.events.userJoinedChat, { username });
 
     this.users = [];
-    this.socket.on("roomUsers", (usersFromSocket) => {
+    this.socket.on(commons.events.roomUsers, (usersFromSocket) => {
       this.users = this.displayController.displayUsers(usersFromSocket);
     });
 
-    this.socket.on("message", (message) => {
+    this.socket.on(commons.events.message, (message) => {
       this.displayController.displayMessage(message);
     });
   }

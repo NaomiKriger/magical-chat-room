@@ -1,3 +1,5 @@
+import commons from "../../../commons.json" assert { type: "json" };
+
 export class MessageSendingController {
   host;
 
@@ -10,13 +12,13 @@ export class MessageSendingController {
   }
 
   onJokeAsked() {
-    this.socket.emit("message", "I want a magical joke!");
+    this.socket.emit(commons.events.message, "I want a magical joke!");
   }
 
   onSubmit(e) {
     e.preventDefault();
     const form = this.shadowRoot.querySelector("form");
-    this.socket.emit("message", this.inputMessage.value);
+    this.socket.emit(commons.events.message, this.inputMessage.value);
     form.reset();
   }
 }

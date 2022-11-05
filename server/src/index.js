@@ -32,13 +32,13 @@ const io = new Server(http, {
   },
 });
 
-io.on("connection", (socket) => {
-  socket.on("userJoinedChat", ({ username }) => {
+io.on(commons.events.connection, (socket) => {
+  socket.on(commons.events.userJoinedChat, ({ username }) => {
     userJoin(socket.id, username);
     socket.join(defaultRoom);
 
     socket.emit(
-      "message",
+      commons.events.message,
       formatMessage(
         `${commons.botIconAndName}`,
         `Welcome ${username} to our magical chat!`
@@ -47,37 +47,37 @@ io.on("connection", (socket) => {
 
     // broadcast to everybody except the user that connected
     socket.broadcast.emit(
-      "message",
-      formatMessage(`${commons.botIconAndName}`, `${username} joined our chat room!`)
+      commons.events.message,
+      formatMessage(
+        `${commons.botIconAndName}`,
+        `${username} joined our chat room!`
+      )
     );
 
     // update users list view
-    io.to(defaultRoom).emit("roomUsers", getRoomUsers());
+    io.to(defaultRoom).emit(commons.events.roomUsers, getRoomUsers());
   });
 
-  socket.on("message", (msg) => {
+  socket.on(commons.events.message, (msg) => {
     const userId = socket.id;
     const user = getCurrentUser(userId);
     io.to(defaultRoom).emit(
-      "message",
-      formatMessage(
-        `<i class="fa fa-user" aria-hidden="true"></i> ${user.username}`,
-        msg
-      )
+      commons.events.message,
+      formatMessage(`${commons.userIcon} ${user.username}`, msg)
     );
 
     handleMessageByBot(io, msg, userId);
   });
 
-  socket.on("disconnect", () => {
+  socket.on(commons.events.disconnect, () => {
     const leavingUser = deleteUser(socket.id);
 
     if (leavingUser) {
       // update users list view
-      io.to(defaultRoom).emit("roomUsers", getRoomUsers());
+      io.to(defaultRoom).emit(commons.events.roomUsers, getRoomUsers());
 
       socket.broadcast.emit(
-        "message",
+        commons.events.message,
         formatMessage(
           `${commons.botIconAndName}`,
           `${leavingUser.username} just left our chat room!`
