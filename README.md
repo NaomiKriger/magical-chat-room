@@ -30,6 +30,6 @@ Wishing you an enchanting experience!
 * Chat bot with an attitude: a bot that can make the users laugh.
     * The bot has a "magical" attitude, with references to Harry Potter
 ---
-## Pictures 📷
+# Pictures 📷
 ![](pictures/magical_joke.jpg)
 ![](pictures/responses_examples.jpg)
