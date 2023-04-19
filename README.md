@@ -33,3 +33,9 @@ Wishing you an enchanting experience!
 # Pictures 📷
 ![](pictures/magical_joke.jpg)
 ![](pictures/responses_examples.jpg)
+
+# Video 🎬
+
+## click the button to strat the video 
+
+[<img src="pictures/youtbe_play_button.png" width="150" height="100">](http://www.youtube.com/watch?v=qcdlPHAnpQk&ab_channel=NaomiKriger)
