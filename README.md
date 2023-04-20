@@ -29,13 +29,3 @@ Wishing you an enchanting experience!
     * Met by using WebSocket protocol
 * Chat bot with an attitude: a bot that can make the users laugh.
     * The bot has a "magical" attitude, with references to Harry Potter
----
-# Pictures 📷
-![](pictures/magical_joke.jpg)
-![](pictures/responses_examples.jpg)
-
-# Video 🎬
-
-## click the button to strat the video 
-
-[<img src="pictures/youtbe_play_button.png" width="150" height="100">](http://www.youtube.com/watch?v=qcdlPHAnpQk&ab_channel=NaomiKriger)
